@@ -3,7 +3,7 @@
 DJ‑Auto is an experimental setup for controlling Ableton Live MIDI clips using natural language.
 
 The MVP consists of:
-- **Python backend** (FastAPI) running locally, exposing simple JSON HTTP endpoints for generating and editing MIDI patterns with an LLM.
+- **Python backend** (Starlette ASGI app, typically served with Uvicorn) running locally, exposing simple JSON HTTP endpoints for generating and editing MIDI patterns with an LLM.
 - **Max for Live MIDI device** that sends user text prompts and clip context to the backend, then writes the returned notes into the selected MIDI clip.
 
 This repo currently contains the **backend** implementation and example code for the **Max for Live** side.
@@ -38,8 +38,8 @@ pip install -r requirements.txt
 Create a `.env` file in the repo root (or set environment variables directly):
 
 ```bash
-OPENAI_API_KEY=sk-...
-LLM_MODEL=gpt-4.1-mini
+GROQ_API_KEY=gsk_...
+LLM_MODEL=qwen/qwen3-32b
 BACKEND_HOST=127.0.0.1
 BACKEND_PORT=8000
 ```
@@ -61,7 +61,7 @@ curl http://127.0.0.1:8000/health
 You should see:
 
 ```json
-{"status":"ok"}
+{"status":"ok","framework":"starlette","llm_provider":"groq","llm_key_present":true}
 ```
 
 ---
